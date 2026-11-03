@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Zarr and OME-Zarrs
+# Zarr and OME-Zarrss
 
 This chapter gives an overview of how image data is stored on a computer, and the challenges of storing and using huge imaging data.
 It then uses these challenges to motivate and explain the development of the modern image storage formats, _Zarr_ and _OME-Zarr_.
