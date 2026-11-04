@@ -3,7 +3,7 @@
 This is a digital textbook that tries to explain the theory and practice behind using the [OME-Zarr data format](https://ngff.openmicroscopy.org/specifications/index.html) for big bioimaging data.
 [Click here to access the book](https://ome-zarr-book.readthedocs.io/).
 
-Feedback is very welcome, by [opening an issue](https://github.com/ome-zarr-models/ome-zarr-book/issues/new) on our GitHub issue tracker.
+Feedback is very welcome, by [opening an issue](https://github.com/ome-zarr-py/ome-zarr-book/issues/new) on our GitHub issue tracker.
 
 ## Contributing
 
