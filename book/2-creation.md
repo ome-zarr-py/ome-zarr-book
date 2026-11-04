@@ -16,18 +16,15 @@ kernelspec:
 
 +++
 
-In this chapter we'll step through practical examples showing to create chunked datasets.
+In this chapter we'll step through practical examples showing how to create chunked datasets.
 To start we'll look at how to create individual Zarr datasets and save them, where each Zarr dataset represents a single 3D image.
-Then we'll look at how to create an OME-Zarr multiscale image, to to save it, and how to add downsampled images that live alongside the original full resolution image.
+Then we'll look at how to create an OME-Zarr multiscale image, how to save it, and how to add downsampled images that live alongside the original full resolution image.
 
 Note: this chapter (and the whole of the textbook) uses Zarr version 2 and OME-Zarr version 0.4. Although newer versions exist (Zarr version 3 and OME-Zarr version 0.5), software tools have not quite caught up to support the newer versions.
 
 ```{code-cell} ipython3
-import matplotlib.pyplot as plt
-import numpy as np
 from rich import print
 import pooch
-from pathlib import Path
 
 from data_helpers import plot_slice
 ```
@@ -36,7 +33,7 @@ from data_helpers import plot_slice
 
 To begin this chapter, we'll look at how to create Zarr datasets. As a recap from chapter 1, Zarr is a specification for storing individual arrays, and groups of those arrays, in some sort of storage medium.
 
-To start, let's load an example [Human Organ Atlas](https://human-organ-atlas.esrf.fr/) heart dataset. We will use the python package `pooch` to download this `.tiff` file from [Zenodo](https://zenodo.org/) onto our computer.
+To start, let's load an example [Human Organ Atlas](https://human-organ-atlas.esrf.fr/) dataset of a human heart. We will use the python package [pooch](https://www.fatiando.org/pooch/latest/index.html) to download this `.tiff` file from [Zenodo](https://zenodo.org/) onto our computer.
 
 ```{code-cell} ipython3
 # Download the dataset and return its local path
@@ -44,11 +41,11 @@ file_path = pooch.retrieve(url="doi:10.5281/zenodo.23950116/hoa_heart.tiff")
 print("Dataset is at", file_path)
 ```
 
-Note: pooch will only download this dataset once to its local [cache directory](https://www.fatiando.org/pooch/latest/api/generated/pooch.os_cache.html). If you run the same code again, it will just return the path to the local file without re-downloading.
+Note: pooch will only download this dataset once to its local [cache directory](https://www.fatiando.org/pooch/latest/api/generated/pooch.os_cache.html). If you run the same code again, it will simply return the path to the existing local copy.
 
 +++
 
-Let's load this heart sample dataset into a NumPy array using the `imageio` library.
+Let's load the dataset into a NumPy array using the [imageio](https://imageio.readthedocs.io/en/stable/) library.
 
 ```{code-cell} ipython3
 import imageio.v3 as iio
