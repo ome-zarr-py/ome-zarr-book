@@ -34,7 +34,7 @@ To start with lets look at the simplest possible mapping from input chunks to ou
 
 ## Open the dataset
 
-First let's load the heart sample dataset again, but now from a `.zarr` version. First, we use `pooch` to download the file from Zenodo and un-zip it on our computer.
+First let's load the heart sample dataset again, but now from a `.zarr` version. Let's use `pooch` to download the file from Zenodo and un-zip it on our computer.
 
 ```{code-cell} ipython3
 import pooch
@@ -50,7 +50,7 @@ zarr_path = Path(file_paths[0]).parent
 print("Dataset is at", zarr_path)
 ```
 
-We can then open this zarr array with `zarr-python`.
+We can then open this zarr array with the [zarr-python](https://zarr.readthedocs.io) library.
 
 ```{code-cell} ipython3
 import zarr
