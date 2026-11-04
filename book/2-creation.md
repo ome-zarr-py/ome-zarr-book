@@ -36,28 +36,24 @@ from data_helpers import plot_slice
 
 To begin this chapter, we'll look at how to create Zarr datasets. As a recap from chapter 1, Zarr is a specification for storing individual arrays, and groups of those arrays, in some sort of storage medium.
 
-To start, let's fetch an example heart dataset coming from the [Human Organ Atlas](https://human-organ-atlas.esrf.fr/). We will use the python package `pooch` to download the dataset from [Zenodo](https://zenodo.org/) and unzip it on our computer.
+To start, let's load an example [Human Organ Atlas](https://human-organ-atlas.esrf.fr/) heart dataset. We will use the python package `pooch` to download this `.tiff` file from [Zenodo](https://zenodo.org/) onto our computer.
 
 ```{code-cell} ipython3
-# Download and unzip the dataset, returning paths to all unzipped files
-file_paths = pooch.retrieve(
-    url="doi:10.5281/zenodo.23943325/hoa_heart.zarr.zip",
-    processor=pooch.Unzip()
-)
-
-# We need the path of the parent directory containing these unzipped files 'hoa_heart.zarr'
-heart_zarr_path = Path(file_paths[0]).parent
-print("Dataset is at", heart_zarr_path)
+# Download the dataset and return its local path
+file_path = pooch.retrieve(url="doi:10.5281/zenodo.23950116/hoa_heart.tiff")
+print("Dataset is at", file_path)
 ```
 
-Note: pooch will only download the dataset once. If we run the same code again, pooch will look in its local [cache directory](https://www.fatiando.org/pooch/latest/api/generated/pooch.os_cache.html), see that it is already present and just return the path to the local file.
+Note: pooch will only download this dataset once to its local [cache directory](https://www.fatiando.org/pooch/latest/api/generated/pooch.os_cache.html). If you run the same code again, it will just return the path to the local file without re-downloading.
 
 +++
 
-Let's load this heart sample dataset as a NumPy array.
+Let's load this heart sample dataset into a NumPy array using the `imageio` library.
 
 ```{code-cell} ipython3
-heart_image = load_heart_data(array_type='numpy')
+import imageio.v3 as iio
+
+heart_image = iio.imread(file_path)
 plot_slice(heart_image, z_idx=70)
 ```
 
