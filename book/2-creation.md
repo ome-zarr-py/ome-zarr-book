@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.18.1
+    jupytext_version: 1.19.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -26,15 +26,35 @@ Note: this chapter (and the whole of the textbook) uses Zarr version 2 and OME-Z
 import matplotlib.pyplot as plt
 import numpy as np
 from rich import print
+import pooch
+from pathlib import Path
 
-from data_helpers import load_heart_data, plot_slice
+from data_helpers import plot_slice
 ```
 
 ## Creating Zarr datasets
 
-To being this chapter, we'll look at how to create Zarr datasets. As a recap from chapter 1, Zarr is a specification for storing individual arrays, and groups of those arrays, in some sort of storage medium.
+To begin this chapter, we'll look at how to create Zarr datasets. As a recap from chapter 1, Zarr is a specification for storing individual arrays, and groups of those arrays, in some sort of storage medium.
 
-To start with we'll load our heart sample dataset again, as a NumPy array.
+To start, let's fetch an example heart dataset coming from the [Human Organ Atlas](https://human-organ-atlas.esrf.fr/). We will use the python package `pooch` to download the dataset from [Zenodo](https://zenodo.org/) and unzip it on our computer.
+
+```{code-cell} ipython3
+# Download and unzip the dataset, returning paths to all unzipped files
+file_paths = pooch.retrieve(
+    url="doi:10.5281/zenodo.23943325/hoa_heart.zarr.zip",
+    processor=pooch.Unzip()
+)
+
+# We need the path of the parent directory containing these unzipped files 'hoa_heart.zarr'
+heart_zarr_path = Path(file_paths[0]).parent
+print("Dataset is at", heart_zarr_path)
+```
+
+Note: pooch will only download the dataset once. If we run the same code again, pooch will look in its local [cache directory](https://www.fatiando.org/pooch/latest/api/generated/pooch.os_cache.html), see that it is already present and just return the path to the local file.
+
++++
+
+Let's load this heart sample dataset as a NumPy array.
 
 ```{code-cell} ipython3
 heart_image = load_heart_data(array_type='numpy')
