@@ -16,7 +16,8 @@ dependencies = [
     "ome-zarr-models==1.7",
     "joblib==1.5.3",
     "scipy==1.18.0",
-    "scikit-image==0.26.0"
+    "scikit-image==0.26.0",
+    "pooch==1.9.0",
 ]
 
 [tool.setuptools]
