@@ -17,12 +17,15 @@ By default, `napari` supports opening Zarr arrays e.g.
 
 ```python
 import napari
+import zarr
+import numpy as np
 
-# Data as a zarr array
-heart_image = load_heart_data(array_type='zarr')
+# Zarr array of random data
+random_np_array = np.random.random((100, 100, 100))
+test_image = zarr.create_array(store=None, data=random_np_array, chunks=(10, 10, 10))
 
 viewer = napari.Viewer()
-viewer.add_image(heart_image)
+viewer.add_image(test_image)
 napari.run()
 ```
 

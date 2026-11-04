@@ -32,7 +32,7 @@ To start with lets look at the simplest possible mapping from input chunks to ou
 
 +++
 
-## Download the dataset
+## Open the dataset
 
 First let's load the heart sample dataset again, but now from a `.zarr` version. First, we use `pooch` to download the file from Zenodo and un-zip it on our computer.
 
