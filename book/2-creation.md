@@ -145,8 +145,8 @@ from pathlib import Path
 import tempfile
 
 def get_directory_contents(dirpath):
-    """Return the contents of a directory"""
-    return sorted(d.relative_to(dirpath).name for d in dirpath.glob("*"))
+    """Return a list of the contents of a directory"""
+    return sorted(d.name for d in dirpath.iterdir())
 
 temp_dir = tempfile.TemporaryDirectory()
 temp_path = Path(temp_dir.name)
