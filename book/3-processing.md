@@ -273,7 +273,7 @@ Then setup the jobs...
 jobs = chunkwise_jobs(clip, input_array=heart_image, output_array=clipped_image)
 print(f"Number of jobs: {len(jobs)}")
 print("First job:")
-pprint(jobs[0])
+print(jobs[0])
 ```
 
 ...run them...
