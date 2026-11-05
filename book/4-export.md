@@ -123,4 +123,5 @@ fig, axs = plt.subplots(ncols=2)
 for image, ax in zip([zarr_array_on_disk, zarr_array], axs):
     ax.set_title(f"Slice at x=45")
     ax.imshow(image[:, :, 45], cmap="gray")
+    ax.axis("off");
 ```

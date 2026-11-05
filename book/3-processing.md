@@ -269,6 +269,7 @@ fig, axs = plt.subplots(ncols=2)
 for image, ax in zip([heart_image, clipped_image], axs):
     ax.set_title(f"Slice at x=65")
     ax.imshow(image[:, :, 65], cmap="gray")
+    ax.axis("off");
 ```
 
 Then setup the jobs...
@@ -293,4 +294,5 @@ fig, axs = plt.subplots(ncols=2)
 for image, ax in zip([heart_image, clipped_image], axs):
     ax.set_title(f"Slice at x=65")
     ax.imshow(image[:, :, 65], cmap="gray")
+    ax.axis("off");
 ```

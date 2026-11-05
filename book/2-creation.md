@@ -47,7 +47,6 @@ Let's load the dataset into a NumPy array using the [imageio](https://imageio.re
 
 ```{code-cell} ipython3
 import imageio.v3 as iio
-import matplotlib.pyplot as plt
 
 heart_image = iio.imread(file_path)
 print(f"{type(heart_image)} with shape {heart_image.shape}")
@@ -56,8 +55,12 @@ print(f"{type(heart_image)} with shape {heart_image.shape}")
 Then plot a slice through it with [matplotlib](https://matplotlib.org/).
 
 ```{code-cell} ipython3
-plt.title("Slice at x=70")
-plt.imshow(heart_image[:, :, 70], cmap="gray")
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=70")
+ax.imshow(heart_image[:, :, 70], cmap="gray")
+ax.axis("off");
 ```
 
 While it is possible to easily save this data to the Zarr format using the zarr-python package in one line, we're going to take a slightly different and more manual approach. Our approach will avoid hiding the configuration of the Zarr data.
@@ -113,10 +116,13 @@ zarr_array = array_spec.to_zarr(store=store, path="/")
 zarr_array
 ```
 
-The zarr array we've created acts in the same way as a normal NumPy array, so we can pass it to functions that work on NumPy arrays like `plt.imshow`:
+The zarr array we've created acts in the same way as a normal NumPy array, so we can pass it to functions that work on NumPy arrays like `imshow`:
 
 ```{code-cell} ipython3
-plt.imshow(zarr_array[:, :, 70], cmap="gray")
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=70")
+ax.imshow(zarr_array[:, :, 70], cmap="gray")
+ax.axis("off");
 ```
 
 This doesn't look right! That's because we never add any data to our Zarr array, so it's assumed that all the data takes the fill value, which is
@@ -129,7 +135,11 @@ To add data to the array, we can just assign it using the usual NumPy syntax. Th
 
 ```{code-cell} ipython3
 zarr_array[:] = heart_image[:]
-plt.imshow(zarr_array[:, :, 70], cmap="gray")
+
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=70")
+ax.imshow(zarr_array[:, :, 70], cmap="gray")
+ax.axis("off");
 ```
 
 To recap, there were three steps to creating an array:
@@ -324,6 +334,8 @@ print(level2_dataset)
 level2_array = multiscale_group[dataset.path]
 print(level2_array)
 
-plt.title("Slice at x=17")
-plt.imshow(level2_array[:, :, 17], cmap="gray")
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=17")
+ax.imshow(level2_array[:, :, 17], cmap="gray")
+ax.axis("off");
 ```
