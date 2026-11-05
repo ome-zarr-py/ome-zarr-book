@@ -260,7 +260,7 @@ First, setup an output array and check it's empty
 from data_helpers import plot_slice
 import matplotlib.pyplot as plt
 
-clipped_image = zarr.zeros_like(heart_image, zarr_format=2)
+clipped_image = zarr.zeros_like(heart_image, zarr_format=3)
 
 fig, axs = plt.subplots(ncols=2)
 plot_slice(heart_image, z_idx=65, ax=axs[0])
