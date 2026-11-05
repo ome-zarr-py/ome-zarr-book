@@ -144,7 +144,9 @@ To change where the array is stored, we can change the store used, for example t
 from pathlib import Path
 import tempfile
 
-from data_helpers import get_directory_contents
+def get_directory_contents(dirpath):
+    """Return the contents of a directory"""
+    return sorted(d.relative_to(dirpath).name for d in dirpath.glob("*"))
 
 temp_dir = tempfile.TemporaryDirectory()
 temp_path = Path(temp_dir.name)
