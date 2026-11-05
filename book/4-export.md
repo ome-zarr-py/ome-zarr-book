@@ -64,7 +64,7 @@ import zarr.storage
 
 memory_store = zarr.storage.MemoryStore()
 # Create an empty array like the original array
-zarr_array = zarr.empty_like(zarr_array_on_disk, store=memory_store, zarr_format=2)
+zarr_array = zarr.empty_like(zarr_array_on_disk, store=memory_store, zarr_format=3)
 # Copy all the data from the original array
 zarr_array[:] = zarr_array_on_disk[:]
 
