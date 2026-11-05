@@ -39,11 +39,13 @@ First let's load the heart sample dataset again, but now from a `.zarr` version.
 ```{code-cell} ipython3
 import pooch
 from pathlib import Path
+from rich import print as pprint
 
 file_paths = pooch.retrieve(
     url="doi:10.5281/zenodo.23950116/hoa_heart.zarr.zip",
     processor=pooch.Unzip()
 )
+pprint("Unzipped file contents:", file_paths)
 
 # We need the parent directory of the unzipped files
 zarr_path = Path(file_paths[0]).parent
@@ -272,8 +274,6 @@ for image, ax in zip([heart_image, clipped_image], axs):
 Then setup the jobs...
 
 ```{code-cell} ipython3
-from rich import print as pprint
-
 jobs = chunkwise_jobs(clip, input_array=heart_image, output_array=clipped_image)
 print(f"Number of jobs: {len(jobs)}")
 print("First job:")

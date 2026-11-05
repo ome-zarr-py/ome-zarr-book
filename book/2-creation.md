@@ -29,9 +29,9 @@ import pooch
 
 ## Creating Zarr datasets
 
-To begin this chapter, we'll look at how to create Zarr datasets. As a recap from chapter 1, Zarr is a specification for storing individual arrays, and groups of those arrays, in some sort of storage medium.
+To begin this chapter, we'll look at how to create Zarr datasets. As a recap from [chapter 1](./1-storage.md), Zarr is a specification for storing individual arrays, and groups of those arrays, in some sort of storage medium.
 
-To start, let's load an example [Human Organ Atlas](https://human-organ-atlas.esrf.fr/) dataset of a human heart. We will use the python package [pooch](https://www.fatiando.org/pooch/latest/index.html) to download this `.tiff` file from [Zenodo](https://zenodo.org/) onto our computer.
+To start, let's load an example [Human Organ Atlas](https://human-organ-atlas.esrf.fr/) dataset of a human heart. We will use the python package [pooch](https://www.fatiando.org/pooch/latest/index.html) to download this `.tiff` file from [Zenodo](https://doi.org/10.5281/zenodo.23950116) onto our computer.
 
 ```{code-cell} ipython3
 # Download the dataset and return its local path
