@@ -259,14 +259,15 @@ def clip(array):
 First, setup an output array and check it's empty
 
 ```{code-cell} ipython3
-from data_helpers import plot_slice
 import matplotlib.pyplot as plt
 
 clipped_image = zarr.zeros_like(heart_image, zarr_format=2)
 
 fig, axs = plt.subplots(ncols=2)
-plot_slice(heart_image, z_idx=65, ax=axs[0])
-plot_slice(clipped_image, z_idx=65, ax=axs[1])
+axs[0].set_title("Slice at x=65")
+axs[0].imshow(heart_image[:, :, 65], cmap="gray")
+axs[1].set_title("Slice at x=65")
+axs[1].imshow(clipped_image[:, :, 65], cmap="gray")
 ```
 
 Then setup the jobs...
@@ -290,6 +291,8 @@ executor(jobs);
 
 ```{code-cell} ipython3
 fig, axs = plt.subplots(ncols=2)
-plot_slice(heart_image, z_idx=65, ax=axs[0])
-plot_slice(clipped_image, z_idx=65, ax=axs[1])
+axs[0].set_title("Slice at x=65")
+axs[0].imshow(heart_image[:, :, 65], cmap="gray")
+axs[1].set_title("Slice at x=65")
+axs[1].imshow(clipped_image[:, :, 65], cmap="gray")
 ```

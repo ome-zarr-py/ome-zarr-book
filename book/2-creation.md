@@ -25,8 +25,6 @@ Note: this chapter (and the whole of the textbook) uses Zarr version 2 and OME-Z
 ```{code-cell} ipython3
 from rich import print
 import pooch
-
-from data_helpers import plot_slice
 ```
 
 ## Creating Zarr datasets
@@ -49,9 +47,17 @@ Let's load the dataset into a NumPy array using the [imageio](https://imageio.re
 
 ```{code-cell} ipython3
 import imageio.v3 as iio
+import matplotlib.pyplot as plt
 
 heart_image = iio.imread(file_path)
-plot_slice(heart_image, z_idx=70)
+print(f"{type(heart_image)} with shape {heart_image.shape}")
+```
+
+Then plot a slice through it with [matplotlib](https://matplotlib.org/).
+
+```{code-cell} ipython3
+plt.title("Slice at x=70")
+plt.imshow(heart_image[:, :, 70], cmap="gray")
 ```
 
 While it is possible to easily save this data to the Zarr format using the zarr-python package in one line, we're going to take a slightly different and more manual approach. Our approach will avoid hiding the configuration of the Zarr data.
@@ -107,10 +113,10 @@ zarr_array = array_spec.to_zarr(store=store, path="/")
 zarr_array
 ```
 
-The zarr array we've created acts in the same way as a normal NumPy array, so we can pass it to functions that work on NumPy arrays like our `plot_slice` function:
+The zarr array we've created acts in the same way as a normal NumPy array, so we can pass it to functions that work on NumPy arrays like `plt.imshow`:
 
 ```{code-cell} ipython3
-plot_slice(zarr_array, z_idx=70)
+plt.imshow(zarr_array[:, :, 70], cmap="gray")
 ```
 
 This doesn't look right! That's because we never add any data to our Zarr array, so it's assumed that all the data takes the fill value, which is
@@ -123,7 +129,7 @@ To add data to the array, we can just assign it using the usual NumPy syntax. Th
 
 ```{code-cell} ipython3
 zarr_array[:] = heart_image[:]
-plot_slice(zarr_array, z_idx=70)
+plt.imshow(zarr_array[:, :, 70], cmap="gray")
 ```
 
 To recap, there were three steps to creating an array:
@@ -316,5 +322,6 @@ print(level2_dataset)
 level2_array = multiscale_group[dataset.path]
 print(level2_array)
 
-plot_slice(level2_array, z_idx=17)
+plt.title("Slice at x=17")
+plt.imshow(level2_array[:, :, 17], cmap="gray")
 ```
