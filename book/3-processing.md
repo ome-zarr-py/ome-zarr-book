@@ -42,7 +42,7 @@ from pathlib import Path
 from rich import print as pprint
 
 file_paths = pooch.retrieve(
-    url="doi:10.5281/zenodo.23950116/hoa_heart.zarr.zip",
+    url="doi:10.5281/zenodo.23980611/hoa_heart.zarr.zip",
     processor=pooch.Unzip()
 )
 pprint("Unzipped file contents:", file_paths)
