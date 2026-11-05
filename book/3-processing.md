@@ -38,18 +38,14 @@ First let's load the heart sample dataset again, but now from a `.zarr` version.
 
 ```{code-cell} ipython3
 import pooch
-from pathlib import Path
-from rich import print as pprint
 
-file_paths = pooch.retrieve(
+extract_directory = "ome-zarr-book-v3"
+_ = pooch.retrieve(
     url="doi:10.5281/zenodo.23980611/hoa_heart.zarr.zip",
-    processor=pooch.Unzip()
+    processor=pooch.Unzip(extract_dir=extract_directory)
 )
-pprint("Unzipped file contents:", file_paths)
-
-# We need the parent directory of the unzipped files
-zarr_path = Path(file_paths[0]).parent
-print("Dataset is at", zarr_path)
+zarr_path = pooch.os_cache("pooch") / extract_directory / "hoa_heart.zarr"
+print("Unzipped zarr path:", zarr_path)
 ```
 
 We can then open this zarr array with the [zarr-python](https://zarr.readthedocs.io) library.
