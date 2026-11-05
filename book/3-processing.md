@@ -267,7 +267,7 @@ clipped_image = zarr.zeros_like(heart_image, zarr_format=2)
 
 fig, axs = plt.subplots(ncols=2)
 for image, ax in zip([heart_image, clipped_image], axs):
-    ax.set_title(f"Slice at x=65")
+    ax.set_title("Slice at x=65")
     ax.imshow(image[:, :, 65], cmap="gray")
     ax.axis("off");
 ```
@@ -292,7 +292,7 @@ executor(jobs);
 ```{code-cell} ipython3
 fig, axs = plt.subplots(ncols=2)
 for image, ax in zip([heart_image, clipped_image], axs):
-    ax.set_title(f"Slice at x=65")
+    ax.set_title("Slice at x=65")
     ax.imshow(image[:, :, 65], cmap="gray")
     ax.axis("off");
 ```
