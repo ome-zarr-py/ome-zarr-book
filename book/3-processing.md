@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.19.1
+    jupytext_version: 1.19.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -31,6 +31,35 @@ This will allow us to compute each output chunk independently, which has two lar
 To start with lets look at the simplest possible mapping from input chunks to output chunks - where the output array has the same shape and chunk size as the input array, and each output chunk depends only on the corresponding input chunk.
 
 +++
+
+## Open the dataset
+
+First let's load the heart sample dataset again, but now from a `.zarr` version. Let's use `pooch` to download the file from Zenodo and un-zip it on our computer.
+
+```{code-cell} ipython3
+import pooch
+from pathlib import Path
+from rich import print as pprint
+
+file_paths = pooch.retrieve(
+    url="doi:10.5281/zenodo.23950116/hoa_heart.zarr.zip",
+    processor=pooch.Unzip()
+)
+pprint("Unzipped file contents:", file_paths)
+
+# We need the parent directory of the unzipped files
+zarr_path = Path(file_paths[0]).parent
+print("Dataset is at", zarr_path)
+```
+
+We can then open this zarr array with the [zarr-python](https://zarr.readthedocs.io) library.
+
+```{code-cell} ipython3
+import zarr
+heart_image = zarr.open_array(store=zarr_path, mode="r")
+
+print(type(heart_image))
+```
 
 ## Simple operations
 
@@ -73,9 +102,6 @@ def all_chunk_indices(array: zarr.Array) -> Generator[tuple[slice, ...], None, N
 ```
 
 ```{code-cell} ipython3
-from data_helpers import load_heart_data
-
-heart_image = load_heart_data(array_type='zarr')
 print(f"Array shape: {heart_image.shape}")
 print(f"Chunk shape: {heart_image.chunks}")
 print("Chunk indices:")
@@ -238,7 +264,6 @@ First, setup an output array and check it's empty
 from data_helpers import plot_slice
 import matplotlib.pyplot as plt
 
-heart_image = load_heart_data(array_type='zarr')
 clipped_image = zarr.zeros_like(heart_image, zarr_format=2)
 
 fig, axs = plt.subplots(ncols=2)
@@ -249,8 +274,6 @@ plot_slice(clipped_image, z_idx=65, ax=axs[1])
 Then setup the jobs...
 
 ```{code-cell} ipython3
-from rich import print as pprint
-
 jobs = chunkwise_jobs(clip, input_array=heart_image, output_array=clipped_image)
 print(f"Number of jobs: {len(jobs)}")
 print("First job:")

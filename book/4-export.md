@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.18.1
+    jupytext_version: 1.19.5
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -33,12 +33,16 @@ If you have larger data you will need to keep the extracted volume small enough 
 :::
 
 ```{code-cell} ipython3
-import numpy as np
+import pooch
 import zarr
+from pathlib import Path
 
-from data_helpers import load_heart_data, plot_slice
-
-zarr_array_on_disk = load_heart_data(array_type="zarr")
+file_paths = pooch.retrieve(
+    url="doi:10.5281/zenodo.23950116/hoa_heart.zarr.zip",
+    processor=pooch.Unzip()
+)
+zarr_path = Path(file_paths[0]).parent
+zarr_array_on_disk = zarr.open_array(store=zarr_path, mode="r")
 ```
 
 ```{code-cell} ipython3
