@@ -24,6 +24,10 @@ dependencies = [
 packages = []
 
 [dependency-groups]
+data = [
+    "fsspec==2026.9.0",
+    "gcsfs==2026.10.1"
+]
 dev = [
     "jupyter-ruff==0.3.1",
     "jupyterlab==4.6.2",
