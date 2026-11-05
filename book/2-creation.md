@@ -304,10 +304,10 @@ import scipy.ndimage
 multiscale_group['level0'][:] = zarr_array[:]
 
 for dataset in multiscale_image.datasets[0][1:]:
+    # Get the scale factor for this level
     scale = dataset.coordinateTransformations[0].transformations[0].scale
     print("Scale: ", scale)
-    # The scale is a physical voxel size, so divide by the full-resolution voxel size
-    # to get how many times smaller this level is
+    # Downsample the level
     downsampled_array = scipy.ndimage.zoom(zarr_array[:], zoom=[voxel_size / s for s in scale])
     # Write downsampled arrays to Zarr storage
     multiscale_group[dataset.path][:] = downsampled_array
