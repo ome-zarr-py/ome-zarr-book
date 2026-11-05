@@ -270,10 +270,12 @@ plot_slice(clipped_image, z_idx=65, ax=axs[1])
 Then setup the jobs...
 
 ```{code-cell} ipython3
+from rich import print as pprint
+
 jobs = chunkwise_jobs(clip, input_array=heart_image, output_array=clipped_image)
 print(f"Number of jobs: {len(jobs)}")
 print("First job:")
-print(jobs[0])
+pprint(jobs[0])
 ```
 
 ...run them...
