@@ -61,14 +61,19 @@ Using a library called pydantic-zarr, we can create an _array specification_.
 This is a model of how we want to configure the Zarr array.
 
 ```{code-cell} ipython3
-from pydantic_zarr.v2 import ArraySpec
+from pydantic_zarr.v3 import ArraySpec, NamedConfig
 from numcodecs import Zstd
 
 array_spec = ArraySpec(
     shape=heart_image.shape,
-    dtype=heart_image.dtype,
-    chunks=(32, 32, 32),
-    compressor=Zstd(level=5),
+    data_type=heart_image.dtype,
+    chunk_grid=NamedConfig(name="regular", configuration={"chunk_shape": (32, 32, 32)}),
+    chunk_key_encoding=NamedConfig(name="default", configuration={"separator": "/"}),
+    codecs=[
+        NamedConfig(name="bytes", configuration={"endian": "little"}),
+        NamedConfig(name="zstd", configuration={"level": 5})
+    ],
+    fill_value=0,
     attributes={}
 )
 print(array_spec)

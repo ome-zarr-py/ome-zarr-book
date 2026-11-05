@@ -1525,7 +1525,7 @@ requires-dist = [
     { name = "matplotlib", specifier = "==3.11.1" },
     { name = "numcodecs", specifier = "==0.16.5" },
     { name = "numpy", specifier = "==2.5.1" },
-    { name = "ome-zarr-models", specifier = "==1.7" },
+    { name = "ome-zarr-models", specifier = "==1.8.1" },
     { name = "pooch", specifier = "==1.9.0" },
     { name = "pydantic-zarr", specifier = "==0.10.0" },
     { name = "rich", specifier = "==15.0.0" },
@@ -1548,16 +1548,17 @@ dev = [
 
 [[package]]
 name = "ome-zarr-models"
-version = "1.7"
+version = "1.8.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "numpy" },
     { name = "pydantic" },
     { name = "pydantic-zarr" },
     { name = "zarr" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/03/17/f4aa0b46a59ba4e7875dc031f5401f709c9fe987bed9932b067c64bac0e2/ome_zarr_models-1.7.tar.gz", hash = "sha256:3979d304f7669e7a22be0bd8a6dd5dcc93fe85af3d842e56930d2ef2e6929090", size = 107192, upload-time = "2026-04-16T12:23:19.147Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ce/dc/40862badc53b5f7188b88bbaa44f86e59b66f3d0ce42aa154990eaeaded2/ome_zarr_models-1.8.1.tar.gz", hash = "sha256:df51b4007151e46e2400460ada140bc6f793b4cfc50cdbfc932969350ec7137b", size = 60603, upload-time = "2026-09-02T10:25:43.946Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/80/dd/3e3beee6716a4da1b60dc7dfc5d06d697bd015b11ed70c6c0bc0368aabc6/ome_zarr_models-1.7-py3-none-any.whl", hash = "sha256:4e786af38936e62be50cee000c53bf41091ee7d24b0d304570b43147ef34b6bb", size = 64185, upload-time = "2026-04-16T12:23:17.769Z" },
+    { url = "https://files.pythonhosted.org/packages/2d/70/9ab676f57fe2cb5457db80dd0cc4648b02cbe777d47f159e357391a1e00a/ome_zarr_models-1.8.1-py3-none-any.whl", hash = "sha256:8231b4f2ceae70992c0b3bbf0e7405016eb14998aaf1546d83c9ff87c0349638", size = 75524, upload-time = "2026-09-02T10:25:42.456Z" },
 ]
 
 [[package]]

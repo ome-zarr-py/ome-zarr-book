@@ -13,7 +13,7 @@ dependencies = [
     "zarr==3.3.0",
     "rich==15.0.0",
     "pydantic-zarr==0.10.0",
-    "ome-zarr-models==1.7",
+    "ome-zarr-models==1.8.1",
     "joblib==1.5.3",
     "scipy==1.18.0",
     "scikit-image==0.26.0",
