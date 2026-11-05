@@ -264,10 +264,9 @@ import matplotlib.pyplot as plt
 clipped_image = zarr.zeros_like(heart_image, zarr_format=2)
 
 fig, axs = plt.subplots(ncols=2)
-axs[0].set_title("Slice at x=65")
-axs[0].imshow(heart_image[:, :, 65], cmap="gray")
-axs[1].set_title("Slice at x=65")
-axs[1].imshow(clipped_image[:, :, 65], cmap="gray")
+for image, ax in zip([heart_image, clipped_image], axs):
+    ax.set_title(f"Slice at x=65")
+    ax.imshow(image[:, :, 65], cmap="gray")
 ```
 
 Then setup the jobs...
@@ -291,8 +290,7 @@ executor(jobs);
 
 ```{code-cell} ipython3
 fig, axs = plt.subplots(ncols=2)
-axs[0].set_title("Slice at x=65")
-axs[0].imshow(heart_image[:, :, 65], cmap="gray")
-axs[1].set_title("Slice at x=65")
-axs[1].imshow(clipped_image[:, :, 65], cmap="gray")
+for image, ax in zip([heart_image, clipped_image], axs):
+    ax.set_title(f"Slice at x=65")
+    ax.imshow(image[:, :, 65], cmap="gray")
 ```
