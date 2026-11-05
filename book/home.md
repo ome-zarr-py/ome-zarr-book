@@ -4,7 +4,6 @@ authors:
     id: dstansby
     orcid: 0000-0002-1365-1908
     github: dstansby
-    corresponding: true
     bluesky: "@dstansby.bsky.social"
     url: https://davidstansby.com
     affiliations:
@@ -26,6 +25,14 @@ authors:
     github: K-Meech
     affiliations:
       - id: ucl
+  
+  - name: Kevin Yamauchi
+    id: kevinyamauchi
+    orcid: 0000-0002-7818-1388
+    github: kevinyamauchi
+    affiliations:
+      - id: Image Cooperative Ltd.
+
 exports:
 - format: cff
   message: "If you want to cite this book, please use information in this citation."
@@ -76,7 +83,7 @@ If you want to you can [download the Python requirements](https://raw.githubuser
 This is a community resource - everyone is welcome to read and contribute to the textbook!
 There are lots of different ways you can contribute:
 
-- **Feedback**: either email David (email link above), post on [our image.sc thread](https://forum.image.sc/t/an-ome-zarr-digital-textbook/117435), or [open an issue on GitHub](https://github.com/ome-zarr-py/ome-zarr-book/issues).
+- **Feedback**: post on [our image.sc thread](https://forum.image.sc/t/an-ome-zarr-digital-textbook/117435), or [open an issue on GitHub](https://github.com/ome-zarr-py/ome-zarr-book/issues).
 - **Suggestions** for new content: same as feedback.
 - **Writing** new content: please open a pull request with your suggested update. If you want to make a major change it might be best to open an issue first to discuss it briefly and check it fits in with the rest of the book.
 
