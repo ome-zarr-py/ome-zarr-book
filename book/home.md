@@ -45,7 +45,7 @@ Tackling this data adds complexity to the tools and methods, so if you have smal
 See the [Introduction to Bioimage Analysis textbook](https://bioimagebook.github.io) for other options.
 
 :::{note}
-This book currently explains and uses OME-Zarr version 0.4, which is not the latest version of OME-Zarr.
+This book currently explains and uses OME-Zarr version 0.6.
 The same concepts and theory applies to later versions of OME-Zarr, but you should be aware that the example code reads and writes OME-Zarr 0.4 data.
 
 In the future we plan to update the book to explain and read/write newer versions of OME-Zarr.
@@ -85,8 +85,7 @@ There are lots of different ways you can contribute:
 The textbook is not complete; here are chapters we would like to add:
 
 - Finish the downsampling and upsampling parts of chapter 3.
-- Update the textbook to use OME-Zarr 0.5 (currently it uses OME-Zarr 0.4).
-- Add an explanation of sharding in OME-Zarr 0.5.
+- Add an explanation of sharding in OME-Zarr 0.6.
 - Add a chapter explaining image containers in OME-Zarr (Zarr groups containing more than one OME-Zarr image), including high content screening and label groups.
 - Expand the "Exporting" chapter to explain how to process one resolution level, and apply that processing to many other resolution levels of a OME-Zarr image.
 

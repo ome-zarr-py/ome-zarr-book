@@ -20,7 +20,7 @@ In this chapter we'll step through practical examples showing how to create chun
 To start we'll look at how to create individual Zarr datasets and save them, where each Zarr dataset represents a single 3D image.
 Then we'll look at how to create an OME-Zarr multiscale image, how to save it, and how to add downsampled images that live alongside the original full resolution image.
 
-Note: this chapter (and the whole of the textbook) uses Zarr version 3 and OME-Zarr version 0.6. Although newer versions exist (Zarr version 3 and OME-Zarr version 0.5), software tools have not quite caught up to support the newer versions.
+Note: this chapter (and the whole of the textbook) uses Zarr version 3 and OME-Zarr version 0.6.
 
 ```{code-cell} ipython3
 from rich import print
