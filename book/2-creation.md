@@ -92,15 +92,12 @@ And some parameters have been filled in automatically for us with default values
 
 - `zarr_version`: the version of Zarr used to save the array
 - `attributes`: any custom metadata
-- `fill_value`: the value assumed if no data has been written
 - `order`: the memory order
-- `filters`: any filters applied to the data before being saved
-- `dimension_separator`: the character separating chunks in different dimensions when the data is saved
 
 Now we've specified the array configuration, we can convert this to an actual Zarr array.
 To do this we need to create a _store_.
 This represents where the Zarr array is stored - examples include in memory, on a local disk, or in some remote cloud storage.
-For a list of available stores see the [`zarr.storage` documentation](https://zarr.readthedocs.io/en/v2.18.5/api/storage.html).
+For a list of available stores see the [`zarr.storage` documentation](https://zarr.readthedocs.io/en/v3.3.0/api/zarr/storage/).
 
 Here we'll use a in memory store.
 
