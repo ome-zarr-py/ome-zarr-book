@@ -81,9 +81,10 @@ print(array_spec)
 We've specified four different parameters:
 
 - `shape`: The shape of array we want to store.
-- `dtype`: The data type of the array we want to store.
-- `chunks`: The chunk shape of the Zarr array
-- `compressor`: The compression algorithm (and any configuration for it) that we want to compress the data with [^benchmarks].
+- `data_type`: The data type of the array we want to store.
+- `chunk_grid`: The chunk shape of the Zarr array
+- `chunk_key_encoding`: How the chunk keys are formatted.
+- `codecs`: The compression algorithm (and any configuration for it) that we want to compress the data with [^benchmarks].
 
 [^benchmarks]: Choosing the right compressor depends on trade offs between read speed, write speed, and how much the data is compressed. A short set of benchmarks to help guide this choice is available at [heftieproject.github.io/zarr-benchmarks](https://heftieproject.github.io/zarr-benchmarks/)
 
