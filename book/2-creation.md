@@ -62,7 +62,6 @@ This is a model of how we want to configure the Zarr array.
 
 ```{code-cell} ipython3
 from pydantic_zarr.v3 import ArraySpec, NamedConfig
-from numcodecs import Zstd
 
 array_spec = ArraySpec(
     shape=heart_image.shape,
@@ -158,10 +157,10 @@ zarr_array[:] = heart_image[:]
 print(f"Directory contents after adding data: {get_directory_contents(temp_path)}")
 ```
 
-After saving the (empty) array, two files are created - '.zarray' and '.zattrs'.
-These store the Zarr array metdadata.
-After adding data to the array, four more folders appear - '0', '1', '2', '3'.
-These folders store the array data.
+After saving the (empty) array, a single file is created - 'zarr.json'.
+This stores the Zarr array metadata.
+After adding data to the array, a directory named 'c' appears.
+This directory contains the chunks that store the array data.
 
 For the rest of the tutorial we'll switch back to storing the array in memory.
 
@@ -180,9 +179,9 @@ OME-Zarr data consists of two components:
 1. Data stored in Zarr format
 2. Metadata used to interpret the data
 
-The OME-Zarr metadata is additional metadata that lives in the `attributes` property of Zarr arrays and groups.
 The OME-Zarr specification contains details for storing a number of different types of data.
 For storing 3D imaging data we will use the multiscale specification.
+The OME-Zarr specification defines metadata that is stored in the `ome` key of the `attributes` property of Zarr groups.
 
 ## Writing OME-Zarr datasets
 
@@ -197,23 +196,28 @@ Lets start by loading some data to convert to OME-Zarr.
 At this point we just have a single 3D image array, stored as a numpy array in the memory of our computer.
 
 To save it as an OME-Zarr Image dataset, we will use the `ome-zarr-models` library.
-The first step is to create a new OME-Zarr Image:
+The first step is to create a new OME-Zarr Image. To create the Image model, we have to
+specify the coordinate system and transformation that map the array to the physical space.
 
 ```{code-cell} ipython3
-from ome_zarr_models.v04 import Image
-from ome_zarr_models.v04.axes import Axis
+from ome_zarr_models.v06 import Image
+from ome_zarr_models.v06.coordinate_transforms import Axis, CoordinateSystem
 
 voxel_size = 19.89
-ome_zarr_image = Image.new(
-    array_specs = [ArraySpec.from_zarr(zarr_array)],
-    paths = ["level0"],
-    axes = [
+physical_coord_system = CoordinateSystem(
+    name="physical",
+    axes=[
         Axis(name="x", type="space", unit="um"),
         Axis(name="y", type="space", unit="um"),
         Axis(name="z", type="space", unit="um")
-    ],
-    global_scale = [voxel_size, voxel_size, voxel_size],
-    scales = [[1, 1, 1]],
+    ]
+)
+
+ome_zarr_image = Image.new(
+    array_specs = [ArraySpec.from_zarr(zarr_array)],
+    paths = ["level0"],
+    physical_coord_system = physical_coord_system,
+    scales = [[voxel_size, voxel_size, voxel_size]],
     translations = [[0, 0, 0]],
     name = "heart_image"
 )
@@ -231,7 +235,7 @@ print(ome_group)
 Now the Zarr group exists, we can get the array from it
 
 ```{code-cell} ipython3
-level0_array = ome_group[ome_zarr_image.attributes.multiscales[0].datasets[0].path]
+level0_array = ome_group[ome_zarr_image.ome_attributes.multiscales[0].datasets[0].path]
 ```
 
 but as before, we haven't filled the array with any data yet.
@@ -250,7 +254,7 @@ The real power of OME-Zarr comes from not just storing original high resolution 
 Lets remind ourselves of the current datasets in our Image
 
 ```{code-cell} ipython3
-print(ome_zarr_image.attributes.multiscales[0].datasets[0])
+print(ome_zarr_image.ome_attributes.multiscales[0].datasets[0])
 ```
 
 To create downsampled datasets, we'll start with the original array specification, and create identical array specifications with smaller shapes.
@@ -258,7 +262,7 @@ To create downsampled datasets, we'll start with the original array specificatio
 ```{code-cell} ipython3
 import math
 
-full_res_spec = ArraySpec.from_array(zarr_array)
+full_res_spec = ArraySpec.from_zarr(zarr_array)
 print("Original array specification: ", full_res_spec)
 
 downsample_levels = [0, 1, 2]
@@ -276,13 +280,8 @@ With this new set of array specifications we can create a OME-Zarr image with mu
 multiscale_image = Image.new(
     array_specs = downsampled_specs,
     paths = [f"level{d}" for d in downsample_levels],
-    axes = [
-        Axis(name="x", type="space", unit="um"),
-        Axis(name="y", type="space", unit="um"),
-        Axis(name="z", type="space", unit="um")
-    ],
-    global_scale = [voxel_size, voxel_size, voxel_size],
-    scales = [[2**d, 2**d, 2**d] for d in downsample_levels],
+    physical_coord_system = physical_coord_system,
+    scales = [[voxel_size * 2**d] * 3 for d in downsample_levels],
     translations = [[0, 0, 0] for d in downsample_levels],
     name = "heart_image"
 )
@@ -305,9 +304,11 @@ import scipy.ndimage
 multiscale_group['level0'][:] = zarr_array[:]
 
 for dataset in multiscale_image.datasets[0][1:]:
-    scale = dataset.coordinateTransformations[0].scale
-    print(scale)
-    downsampled_array = scipy.ndimage.zoom(zarr_array[:], zoom=[1 / s for s in scale])
+    scale = dataset.coordinateTransformations[0].transformations[0].scale
+    print("Scale: ", scale)
+    # The scale is a physical voxel size, so divide by the full-resolution voxel size
+    # to get how many times smaller this level is
+    downsampled_array = scipy.ndimage.zoom(zarr_array[:], zoom=[voxel_size / s for s in scale])
     # Write downsampled arrays to Zarr storage
     multiscale_group[dataset.path][:] = downsampled_array
 ```
