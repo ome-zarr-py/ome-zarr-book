@@ -35,13 +35,13 @@ If you have larger data you will need to keep the extracted volume small enough 
 ```{code-cell} ipython3
 import pooch
 import zarr
-from pathlib import Path
 
-file_paths = pooch.retrieve(
-    url="doi:10.5281/zenodo.23950116/hoa_heart.zarr.zip",
-    processor=pooch.Unzip()
+extract_directory = "ome-zarr-book-v3"
+_ = pooch.retrieve(
+    url="doi:10.5281/zenodo.23980611/hoa_heart.zarr.zip",
+    processor=pooch.Unzip(extract_dir=extract_directory)
 )
-zarr_path = Path(file_paths[0]).parent
+zarr_path = pooch.os_cache("pooch") / extract_directory / "hoa_heart.zarr"
 zarr_array_on_disk = zarr.open_array(store=zarr_path, mode="r")
 ```
 
