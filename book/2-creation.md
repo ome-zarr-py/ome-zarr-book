@@ -201,7 +201,7 @@ specify the coordinate system and transformation that map the array to the physi
 from ome_zarr_models.v06 import Image
 from ome_zarr_models.v06.coordinate_transforms import Axis, CoordinateSystem
 
-voxel_size = 19.89
+voxel_size = 1272.96
 physical_coord_system = CoordinateSystem(
     name="physical",
     axes=[

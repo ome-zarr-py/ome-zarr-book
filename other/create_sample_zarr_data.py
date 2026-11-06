@@ -25,6 +25,19 @@ arr = zarr.open_array(
 )
 
 # %%
+# Get the voxel scale
+group = zarr.open_group(
+    "gs://ucl-hip-ct-35a68e99feaae8932b1d44da0358940b/LADAF-2020-27/heart/19.89um_complete-organ_bm18.ome.zarr",
+    mode="r",
+    storage_options={"token": "anon"},
+)
+multiscales = group.attrs["multiscales"][0]
+dataset = next(dataset for dataset in multiscales["datasets"] if dataset["path"] == "6")
+for transform in dataset["coordinateTransformations"]:
+    if transform["type"] == "scale":
+        print(f"voxel scale [µm]: {transform['scale']}")
+
+# %%
 arr.nbytes / 1e6
 
 # %%
