@@ -16,7 +16,7 @@ We recommend using [uv](#uv) for the fastest installation, but if you'd prefer t
 ### Uv
 
 - Install uv using the instructions in [uv's docs](https://docs.astral.sh/uv/getting-started/installation/)
-- Run `uv run jupyter lab` to install the required dependencies and open jupyter lab in your default web browser
+- Run `uv run --no-dev jupyter lab` to install the required dependencies and open jupyter lab in your default web browser
 
 ### Pip
 - We recommend creating a new virtual environment with your preferred tool e.g. [conda](https://docs.conda.io/projects/conda) or [venv](https://docs.python.org/3/library/venv.html).
