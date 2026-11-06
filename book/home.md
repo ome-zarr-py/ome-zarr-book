@@ -47,7 +47,7 @@ It is written for anyone working with bioimaging data that is 'big'.
 This means too big to transfer the data quickly from where it's stored to where you need it in one go.
 This can include downloading it over the internet for viewing, or loading it from your hard drive into memory for analysis.
 
-The tools and methods in this texbook are tailored to working with big imaging data.
+The tools and methods in this textbook are tailored to working with big imaging data.
 Tackling this data adds complexity to the tools and methods, so if you have smaller data it might be easier to use other file formats and tools.
 See the [Introduction to Bioimage Analysis textbook](https://bioimagebook.github.io) for other options.
 
@@ -62,10 +62,15 @@ In the future we plan to update the book to explain and read/write newer version
 
 ### Pre-requisites
 
-This textbook assumes some familiarity with images.
-The practical examples in this textbook are written in the Python programming language, but you can still read the book with out running or understanding the code.
-The first two chapters give theoretical background and code is only used to explain concepts; the later chapters explain the practice of working with OME-Zarr datasets and contain code that you could copy and adapt for your own use.
-The [Introduction to Bioimage Analysis textbook](https://bioimagebook.github.io) has a good primer on images in the context of both Python and Biology.
+This textbook introduces OME-Zarr alongside examples in the Python programming language.
+We assume readers have:
+- intermediate experience with the Python programming language
+- an understanding of [NumPy](https://numpy.org/) fundamentals (e.g. arrays, `.shape`, `.dtype`, slicing)
+- an understanding of image analysis fundamentals (e.g. dimensions, pixels, resolution, metadata)
+- an understanding of the file system (e.g. navigating files and directories)
+
+The [Introduction to Bioimage Analysis textbook](https://bioimagebook.github.io) has a good primer on images in the context of both Python and Biology. 
+For Python fundamentals, the [Software Carpentry Programming with Python course](https://swcarpentry.github.io/python-novice-inflammation/) is a useful resource.
 
 ### Reading the book
 
