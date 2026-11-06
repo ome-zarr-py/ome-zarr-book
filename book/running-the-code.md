@@ -11,7 +11,7 @@ cd ome-zarr-book
 
 ## Install the python dependencies
 
-We recommend using [uv](#uv) for the fastest installation, but if you'd prefer to use a different python package manager, you can follow the [pip instructions](#pip) instead.
+We recommend using `uv` for the fastest installation, but if you'd prefer to use a different python package manager, you can follow the `pip` instructions instead.
 
 ### Uv
 
