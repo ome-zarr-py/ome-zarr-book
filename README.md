@@ -11,8 +11,11 @@ Feedback is very welcome, by [opening an issue](https://github.com/ome-zarr-py/o
 
 This book is built using [Jupyter Book](https://next.jupyterbook.org/).
 To develop the book, it's recommended to use [uv](https://docs.astral.sh/uv/).
-Run `uv run jupyter lab` to start Jupyter, and then navigate to the `book` directory.
-Then right-click on one of the chapter's `.md` files and select "Open With" > "Jupytext Notebook".
+
+- Run `uv run jupyter lab` to start Jupyter
+- Navigate to the `book` directory
+- Right-click on one of the chapter's `.md` files and select "Open With" > "Jupytext Notebook"
+
 All cells can be edited / run directly in this interface.
 
 To build the book locally run:
