@@ -28,7 +28,7 @@ uv run --group build jupyter book start --execute
 This command will print a link that can be opened in a web browser to preview the book locally.
 
 If you change the dependencies, make sure the `uv.lock` and `requirements.txt` files are up to date:
-```
+```bash
 uv lock
 uv export --format requirements.txt --no-hashes --no-annotate --no-dev --locked --no-header --output-file requirements.txt
 ```

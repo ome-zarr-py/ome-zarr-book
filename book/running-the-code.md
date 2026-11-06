@@ -4,7 +4,7 @@ If you'd like to run the book's code examples locally on your computer, follow t
 Otherwise, skip straight to [chapter 1](./1-storage.md).
 
 ## Clone the book's github repository
-```
+```bash
 git clone https://github.com/ome-zarr-py/ome-zarr-book
 cd ome-zarr-book
 ```
