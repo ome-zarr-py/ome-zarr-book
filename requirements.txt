@@ -70,7 +70,7 @@ networkx==3.6.1
 notebook-shim==0.2.4
 numcodecs==0.16.5
 numpy==2.5.1
-ome-zarr-models==1.7
+ome-zarr-models==1.8.1
 packaging==26.3
 pandocfilters==1.5.1
 parso==0.8.7

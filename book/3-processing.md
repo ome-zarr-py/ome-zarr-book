@@ -38,18 +38,14 @@ First let's load the heart sample dataset again, but now from a `.zarr` version.
 
 ```{code-cell} ipython3
 import pooch
-from pathlib import Path
-from rich import print as pprint
 
-file_paths = pooch.retrieve(
-    url="doi:10.5281/zenodo.23950116/hoa_heart.zarr.zip",
-    processor=pooch.Unzip()
+extract_directory = "ome-zarr-book-v3"
+_ = pooch.retrieve(
+    url="doi:10.5281/zenodo.23980611/hoa_heart.zarr.zip",
+    processor=pooch.Unzip(extract_dir=extract_directory)
 )
-pprint("Unzipped file contents:", file_paths)
-
-# We need the parent directory of the unzipped files
-zarr_path = Path(file_paths[0]).parent
-print("Dataset is at", zarr_path)
+zarr_path = pooch.os_cache("pooch") / extract_directory / "hoa_heart.zarr"
+print("Unzipped zarr path:", zarr_path)
 ```
 
 We can then open this zarr array with the [zarr-python](https://zarr.readthedocs.io) library.
@@ -263,7 +259,7 @@ First, setup an output array and check it's empty
 ```{code-cell} ipython3
 import matplotlib.pyplot as plt
 
-clipped_image = zarr.zeros_like(heart_image, zarr_format=2)
+clipped_image = zarr.zeros_like(heart_image, zarr_format=3)
 
 fig, axs = plt.subplots(ncols=2)
 for image, ax in zip([heart_image, clipped_image], axs):
@@ -275,6 +271,8 @@ for image, ax in zip([heart_image, clipped_image], axs):
 Then setup the jobs...
 
 ```{code-cell} ipython3
+from rich import print as pprint
+
 jobs = chunkwise_jobs(clip, input_array=heart_image, output_array=clipped_image)
 print(f"Number of jobs: {len(jobs)}")
 print("First job:")
