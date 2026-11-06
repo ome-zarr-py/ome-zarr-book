@@ -94,8 +94,9 @@ There are lots of different ways you can contribute:
 
 ### Roadmap
 
-The textbook is not complete; here are chapters we would like to add:
+The textbook is not complete; here are updates we would like to make:
 
+- Reduce the learning curve of the early chapters, making it more accessible to beginner Python users.
 - Finish the downsampling and upsampling parts of chapter 3.
 - Update the textbook to use OME-Zarr 0.5 (currently it uses OME-Zarr 0.4).
 - Add an explanation of sharding in OME-Zarr 0.5.
