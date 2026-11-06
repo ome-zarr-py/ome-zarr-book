@@ -7,6 +7,7 @@ project:
     content: CC-BY-4.0
   toc:
     - file: home.md
+    - file: running-the-code.md
     - file: 1-storage.md
     - file: 2-creation.md
     - file: 3-processing.md

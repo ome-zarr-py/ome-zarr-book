@@ -1109,7 +1109,8 @@ source = { virtual = "." }
 dependencies = [
     { name = "imageio", extra = ["tifffile"] },
     { name = "joblib" },
-    { name = "jupyter-book" },
+    { name = "jupyterlab" },
+    { name = "jupytext" },
     { name = "matplotlib" },
     { name = "numcodecs" },
     { name = "numpy" },
@@ -1123,10 +1124,11 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
+build = [
+    { name = "jupyter-book" },
+]
 dev = [
     { name = "jupyter-ruff" },
-    { name = "jupyterlab" },
-    { name = "jupytext" },
     { name = "pre-commit" },
 ]
 
@@ -1134,7 +1136,8 @@ dev = [
 requires-dist = [
     { name = "imageio", extras = ["tifffile"], specifier = "==2.37.4" },
     { name = "joblib", specifier = "==1.5.3" },
-    { name = "jupyter-book", specifier = "==2.1.6" },
+    { name = "jupyterlab", specifier = "==4.6.2" },
+    { name = "jupytext", specifier = "==1.19.5" },
     { name = "matplotlib", specifier = "==3.11.1" },
     { name = "numcodecs", specifier = "==0.16.5" },
     { name = "numpy", specifier = "==2.5.1" },
@@ -1148,10 +1151,9 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
+build = [{ name = "jupyter-book", specifier = "==2.1.6" }]
 dev = [
     { name = "jupyter-ruff", specifier = "==0.3.1" },
-    { name = "jupyterlab", specifier = "==4.6.2" },
-    { name = "jupytext", specifier = "==1.19.5" },
     { name = "pre-commit", specifier = "==4.7.0" },
 ]
 
