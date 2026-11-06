@@ -25,8 +25,6 @@ Note: this chapter (and the whole of the textbook) uses Zarr version 2 and OME-Z
 ```{code-cell} ipython3
 from rich import print
 import pooch
-
-from data_helpers import plot_slice
 ```
 
 ## Creating Zarr datasets
@@ -51,7 +49,18 @@ Let's load the dataset into a NumPy array using the [imageio](https://imageio.re
 import imageio.v3 as iio
 
 heart_image = iio.imread(file_path)
-plot_slice(heart_image, z_idx=70)
+print(f"{type(heart_image)} with shape {heart_image.shape}")
+```
+
+Then plot a slice through it with [matplotlib](https://matplotlib.org/).
+
+```{code-cell} ipython3
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=70")
+ax.imshow(heart_image[:, :, 70], cmap="gray")
+ax.axis("off");
 ```
 
 While it is possible to easily save this data to the Zarr format using the zarr-python package in one line, we're going to take a slightly different and more manual approach. Our approach will avoid hiding the configuration of the Zarr data.
@@ -107,10 +116,13 @@ zarr_array = array_spec.to_zarr(store=store, path="/")
 zarr_array
 ```
 
-The zarr array we've created acts in the same way as a normal NumPy array, so we can pass it to functions that work on NumPy arrays like our `plot_slice` function:
+The zarr array we've created acts in the same way as a normal NumPy array, so we can pass it to functions that work on NumPy arrays like `imshow`:
 
 ```{code-cell} ipython3
-plot_slice(zarr_array, z_idx=70)
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=70")
+ax.imshow(zarr_array[:, :, 70], cmap="gray")
+ax.axis("off");
 ```
 
 This doesn't look right! That's because we never add any data to our Zarr array, so it's assumed that all the data takes the fill value, which is
@@ -123,7 +135,11 @@ To add data to the array, we can just assign it using the usual NumPy syntax. Th
 
 ```{code-cell} ipython3
 zarr_array[:] = heart_image[:]
-plot_slice(zarr_array, z_idx=70)
+
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=70")
+ax.imshow(zarr_array[:, :, 70], cmap="gray")
+ax.axis("off");
 ```
 
 To recap, there were three steps to creating an array:
@@ -138,7 +154,9 @@ To change where the array is stored, we can change the store used, for example t
 from pathlib import Path
 import tempfile
 
-from data_helpers import get_directory_contents
+def get_directory_contents(dirpath):
+    """Return a list of the contents of a directory"""
+    return sorted(d.name for d in dirpath.iterdir())
 
 temp_dir = tempfile.TemporaryDirectory()
 temp_path = Path(temp_dir.name)
@@ -316,5 +334,8 @@ print(level2_dataset)
 level2_array = multiscale_group[dataset.path]
 print(level2_array)
 
-plot_slice(level2_array, z_idx=17)
+fig, ax = plt.subplots()
+ax.set_title("Slice at x=17")
+ax.imshow(level2_array[:, :, 17], cmap="gray")
+ax.axis("off");
 ```
