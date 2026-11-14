@@ -1,0 +1,76 @@
+# Builds the book on every PR and push to main.
+# - push to main: deploys to the root of the gh-pages branch
+# - pull_request: uploads the built site; `docs-preview.yml` deploys it.
+#   This job runs with a read-only token and no secrets, so it's safe for forks.
+name: Docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # MyST needs to know the path it's served from
+      BASE_URL: /${{ github.event.repository.name }}${{ github.event_name == 'pull_request' && format('/pr-preview/pr-{0}', github.event.number) || '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm install -g @mermaid-js/mermaid-cli
+      - run: uv sync --frozen
+      # build the matplotlib font cache, otherwise cell execution can time out
+      - run: uv run --frozen python -c "import matplotlib"
+      - name: Build book
+        working-directory: book
+        run: |
+          uv run --frozen jupyter book build --html --execute --strict --ci
+          touch _build/html/.nojekyll
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: book/_build/html
+          include-hidden-files: true
+
+      - name: Save PR number for docs-preview.yml
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p pr
+          echo "${{ github.event.number }}" > pr/number
+      - uses: actions/upload-artifact@v7
+        if: github.event_name == 'pull_request'
+        with:
+          name: pr-number
+          path: pr/
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: _site
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: _site
+          branch: gh-pages
+          clean-exclude: pr-preview/
+          force: false
