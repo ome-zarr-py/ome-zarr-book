@@ -117,12 +117,11 @@ zarr_array[subvolume_slice] = sub_array[:]
 ```
 
 ```{code-cell} ipython3
-from data_helpers import plot_slice
+import matplotlib.pyplot as plt
 
-plot_slice(zarr_array_on_disk, z_idx=45)
-plot_slice(zarr_array, z_idx=45)
-```
-
-```{code-cell} ipython3
-
+fig, axs = plt.subplots(ncols=2)
+for image, ax in zip([zarr_array_on_disk, zarr_array], axs):
+    ax.set_title("Slice at x=45")
+    ax.imshow(image[:, :, 45], cmap="gray")
+    ax.axis("off");
 ```
