@@ -99,7 +99,7 @@ We've specified some parameters:
 
 And some parameters have been filled in automatically for us with default values:
 
-- `zarr_version`: the version of Zarr used to save the array
+- `zarr_format`: the version of Zarr used to save the array
 - `attributes`: any custom metadata
 - `order`: the memory order
 
