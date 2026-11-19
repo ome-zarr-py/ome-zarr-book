@@ -87,7 +87,7 @@ array_spec = ArraySpec(
 print(array_spec)
 ```
 
-We've specified four different parameters:
+We've specified some parameters:
 
 - `shape`: The shape of array we want to store.
 - `data_type`: The data type of the array we want to store.
