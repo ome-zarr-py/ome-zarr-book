@@ -35,7 +35,7 @@ To start, let's load an example [Human Organ Atlas](https://human-organ-atlas.es
 
 ```{code-cell} ipython3
 # Download the dataset and return its local path
-file_path = pooch.retrieve(url="doi:10.5281/zenodo.23950116/hoa_heart.tiff")
+file_path = pooch.retrieve(url="doi:10.5281/zenodo.23980611/hoa_heart.tiff")
 print("Dataset is at", file_path)
 ```
 
