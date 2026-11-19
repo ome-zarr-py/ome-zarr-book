@@ -53,7 +53,7 @@ See the [Introduction to Bioimage Analysis textbook](https://bioimagebook.github
 
 :::{note}
 This book currently explains and uses OME-Zarr version 0.6.
-The same concepts and theory applies to later versions of OME-Zarr, but you should be aware that the example code reads and writes OME-Zarr 0.4 data.
+The same concepts and theory applies to later versions of OME-Zarr, but you should be aware that the example code reads and writes OME-Zarr 0.6 data.
 
 In the future we plan to update the book to explain and read/write newer versions of OME-Zarr.
 :::
