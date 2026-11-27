@@ -94,14 +94,13 @@ We've specified some parameters:
 - `chunk_grid`: The chunk shape of the Zarr array
 - `chunk_key_encoding`: How the chunk keys are formatted.
 - `codecs`: The compression algorithm (and any configuration for it) that we want to compress the data with [^benchmarks].
+- `fill_value`: the value assumed if no data has been written.
 
 [^benchmarks]: Choosing the right compressor depends on trade offs between read speed, write speed, and how much the data is compressed. A short set of benchmarks to help guide this choice is available at [heftieproject.github.io/zarr-benchmarks](https://heftieproject.github.io/zarr-benchmarks/)
 
 And some parameters have been filled in automatically for us with default values:
 
 - `zarr_format`: the version of Zarr used to save the array
-- `attributes`: any custom metadata
-- `order`: the memory order
 
 Now we've specified the array configuration, we can convert this to an actual Zarr array.
 To do this we need to create a _store_.
