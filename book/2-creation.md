@@ -82,6 +82,7 @@ array_spec = ArraySpec(
         NamedConfig(name="zstd", configuration={"level": 5})
     ],
     fill_value=0,
+    attributes={}
 )
 print(array_spec)
 ```
