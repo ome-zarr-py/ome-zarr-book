@@ -202,7 +202,6 @@ The OME-Zarr specification defines metadata that is stored in the `ome` key of t
 ## Writing OME-Zarr datasets
 
 There are a number of different Python libraries available for writing OME-Zarr multiscale datasets.
-A list of them at time of writing, along with their pros and cons is available in the [appendices](appendices.md).
 For this textbook we'll be using [ome-zarr-models](https://ome-zarr-models-py.readthedocs.io), which is a Python package for creating and validating OME-Zarr datasets.
 
 Lets start by loading some data to convert to OME-Zarr.
